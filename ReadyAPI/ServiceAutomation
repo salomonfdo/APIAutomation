@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6f25cede-38fd-4326-b376-e5e1da72e964" activeEnvironment="Default" name="ServiceAutomation" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testSuite id="b2da82ea-c392-43c9-a522-be3a8e5dd583" name="Library"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="3e91c688-04eb-401b-be25-9764c91fc894" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReusableScripts" searchProperties="true"><con:settings/><con:testStep type="groovy" name="ReusableLib" id="d7376a6b-89a2-40f7-9d67-b05ed3f79a2a"><con:settings/><con:config><script>class Testing
+{
+	def log
+	def context
+	def testRunner
+	def Testing(log, testRunner, context)
+	{
+			this.log = log
+			this.context = context
+			this.testRunner = testRunner
+	}
+
+	def displayMessage()
+	{
+		log.info "This is reusable Method"	
+	}
+
+	def calculateSum(def a, def b)
+	{
+		def c = a+b
+		log.info c
+	}
+}
+
+context.setProperty("obj", new Testing(log, testRunner, context))</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="bec167f5-0d3e-4ee3-b762-f77bf021ad49" name="AutomationSuite1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="280b267c-2591-4f22-828a-4b93ddf0053c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Case1" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Step1" id="9ab4a88b-41d9-4a9c-a2ac-1c6e595f1ab3"><con:settings/><con:config><script>def suiteRef = testRunner.testCase.testSuite.project.testSuites["Library"]
+def reusableStep = suiteRef.testCases["ReusableScripts"].testSteps["ReusableLib"]
+reusableStep.run(testRunner,context)
+def myobj = context.obj
+myobj.displayMessage()
+myobj.calculateSum(23,45)</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
